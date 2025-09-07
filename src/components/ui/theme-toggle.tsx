@@ -15,12 +15,10 @@ export function ThemeToggle({ className }: { className?: string }) {
   }, [])
 
   const handleToggle = () => {
-    if (theme === "system") {
+    if (theme === "dark") {
       setTheme("light")
     } else if (theme === "light") {
       setTheme("dark")
-    } else {
-      setTheme("system")
     }
   }
 
@@ -44,12 +42,12 @@ export function ThemeToggle({ className }: { className?: string }) {
 
   const getTooltip = () => {
     switch (theme) {
-      case "system":
+      case "dark":
         return "Switch to light mode"
       case "light":
         return "Switch to dark mode"
       default:
-        return "Switch to system mode"
+        return "Switch to dark mode"
     }
   }
 

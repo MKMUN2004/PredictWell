@@ -81,20 +81,20 @@ function generateHistoricalData(_patientId: string, _startDate: Date): Historica
       date: date.toISOString().split('T')[0],
       riskScore: Math.round(riskScore),
       vitals: {
-        weight: 70 + Math.random() * 30,
+        weight: Number((70 + Math.random() * 30).toFixed(2)),
         bloodPressure: {
-          systolic: 120 + Math.random() * 40,
-          diastolic: 80 + Math.random() * 20
+          systolic: Number((120 + Math.random() * 40).toFixed(2)),
+          diastolic: Number((80 + Math.random() * 20).toFixed(2))
         },
-        heartRate: 60 + Math.random() * 40
+        heartRate: Number((60 + Math.random() * 40).toFixed(2))
       },
       labResults: {
-        glucose: 80 + Math.random() * 100,
-        hba1c: 5.0 + Math.random() * 3,
+        glucose: Number((80 + Math.random() * 100).toFixed(2)),
+        hba1c: Number((5.0 + Math.random() * 3).toFixed(2)),
         cholesterol: {
-          total: 150 + Math.random() * 100,
-          ldl: 100 + Math.random() * 80,
-          hdl: 40 + Math.random() * 30
+          total: Number((150 + Math.random() * 100).toFixed(2)),
+          ldl: Number((100 + Math.random() * 80).toFixed(2)),
+          hdl: Number((40 + Math.random() * 30).toFixed(2))
         }
       },
       medications: getRandomElements(medications, Math.floor(Math.random() * 5) + 1).map(m => m.name),
@@ -150,27 +150,27 @@ export function generateSamplePatients(): Patient[] {
         email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@email.com`
       },
       vitals: {
-        height: 150 + Math.random() * 50,
-        weight: 60 + Math.random() * 40,
-        bmi: 20 + Math.random() * 20,
+        height: Number((150 + Math.random() * 50).toFixed(2)),
+        weight: Number((60 + Math.random() * 40).toFixed(2)),
+        bmi: Number((20 + Math.random() * 20).toFixed(2)),
         bloodPressure: {
-          systolic: 110 + Math.random() * 40,
-          diastolic: 70 + Math.random() * 20
+          systolic: Number((110 + Math.random() * 40).toFixed(2)),
+          diastolic: Number((70 + Math.random() * 20).toFixed(2))
         },
-        heartRate: 60 + Math.random() * 40,
-        temperature: 36.5 + Math.random() * 1.5,
-        oxygenSaturation: 95 + Math.random() * 5
+        heartRate: Number((60 + Math.random() * 40).toFixed(2)),
+        temperature: Number((36.5 + Math.random() * 1.5).toFixed(2)),
+        oxygenSaturation: Number((95 + Math.random() * 5).toFixed(2))
       },
       labResults: {
-        glucose: 80 + Math.random() * 120,
-        hba1c: 5.0 + Math.random() * 4,
+        glucose: Number((80 + Math.random() * 120).toFixed(2)),
+        hba1c: Number((5.0 + Math.random() * 4).toFixed(2)),
         cholesterol: {
-          total: 150 + Math.random() * 100,
-          ldl: 100 + Math.random() * 80,
-          hdl: 40 + Math.random() * 30
+          total: Number((150 + Math.random() * 100).toFixed(2)),
+          ldl: Number((100 + Math.random() * 80).toFixed(2)),
+          hdl: Number((40 + Math.random() * 30).toFixed(2))
         },
-        creatinine: 0.7 + Math.random() * 1.0,
-        egfr: 60 + Math.random() * 40,
+        creatinine: Number((0.7 + Math.random() * 1.0).toFixed(2)),
+        egfr: Number((60 + Math.random() * 40).toFixed(2)),
         lastUpdated: lastVisit
       },
       medications: patientMedications.map((med, index) => ({

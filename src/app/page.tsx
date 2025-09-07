@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { 
   Users, 
@@ -16,8 +16,10 @@ import { Container, Section } from "@/components/ui/container"
 import { ResponsiveGrid, CardGrid } from "@/components/ui/responsive-grid"
 import { generateSamplePatients, generateCohortStats } from "@/lib/sample-data"
 import { Patient, CohortStats } from "@/types/patient"
+import { useRouter } from "next/navigation"
 
 export default function Dashboard() {
+  const router = useRouter()
   const [patients, setPatients] = useState<Patient[]>([])
   const [cohortStats, setCohortStats] = useState<CohortStats | null>(null)
   const [loading, setLoading] = useState(true)
@@ -38,11 +40,20 @@ export default function Dashboard() {
   const handlePatientClick = (patient: Patient | { id: string; name: string; riskScore: number; age: number; conditions: string[] }) => {
     // Navigate to patient detail page
     console.log("Navigate to patient:", patient.id)
+    router.push(`/patients/${patient.id}`)
   }
 
   const handleEditPatient = (patient: Patient) => {
     // Open edit modal or navigate to edit page
     console.log("Edit patient:", patient.id)
+  }
+
+  const totalRef = useRef<HTMLDivElement | null>(null)
+
+  const totalPatientsClick = () => {
+    if (totalRef.current) {
+      totalRef.current.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
   }
 
   if (loading) {
@@ -82,7 +93,7 @@ export default function Dashboard() {
           transition={{ duration: 0.5 }}
         >
           <div className="flex-1">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-purple-600 bg-clip-text">
               Chronic Care Dashboard
             </h1>
             <p className="text-sm sm:text-base text-muted-foreground mt-2">
@@ -109,43 +120,51 @@ export default function Dashboard() {
 
         {/* KPI Cards */}
         <CardGrid cols={{ default: 1, sm: 2, lg: 4 }} className="mb-8 sm:mb-12 gap-4 sm:gap-6">
-          <KPICard
-            title="Total Patients"
-            value={cohortStats?.totalPatients || 0}
-            change={5.2}
-            changeLabel="vs last month"
-            icon={Users}
-            color="blue"
-            delay={0.1}
-          />
-          <KPICard
-            title="High Risk Patients"
-            value={cohortStats?.highRisk || 0}
-            change={-2.1}
-            changeLabel="vs last month"
-            icon={AlertTriangle}
-            color="red"
-            delay={0.2}
-          />
-          <KPICard
-            title="Average Risk Score"
-            value={cohortStats?.averageRiskScore || 0}
-            change={1.3}
-            changeLabel="vs last month"
-            icon={TrendingUp}
-            color="orange"
-            delay={0.3}
-            formatValue={(val) => `${val}%`}
-          />
-          <KPICard
-            title="Critical Patients"
-            value={cohortStats?.criticalPatients || 0}
-            change={0}
-            changeLabel="requires attention"
-            icon={Heart}
-            color="purple"
-            delay={0.4}
-          />
+          <div onClick={totalPatientsClick}>
+            <KPICard
+              title="Total Patients"
+              value={cohortStats?.totalPatients || 0}
+              change={5.2}
+              changeLabel="vs last month"
+              icon={Users}
+              color="blue"
+              delay={0.1}
+            />
+          </div>
+          <div onClick={totalPatientsClick}>
+            <KPICard
+              title="High Risk Patients"
+              value={cohortStats?.highRisk || 0}
+              change={-2.1}
+              changeLabel="vs last month"
+              icon={AlertTriangle}
+              color="red"
+              delay={0.2}
+            />
+          </div>
+          <div onClick={totalPatientsClick}>
+            <KPICard
+              title="Average Risk Score"
+              value={cohortStats?.averageRiskScore || 0}
+              change={1.3}
+              changeLabel="vs last month"
+              icon={TrendingUp}
+              color="orange"
+              delay={0.3}
+              formatValue={(val) => `${val}%`}
+            />
+          </div>
+          <div onClick={totalPatientsClick}>
+            <KPICard
+              title="Critical Patients"
+              value={cohortStats?.criticalPatients || 0}
+              change={0}
+              changeLabel="requires attention"
+              icon={Heart}
+              color="purple"
+              delay={0.4}
+            />
+          </div>
         </CardGrid>
 
         {/* Risk Distribution and Additional Stats */}
@@ -254,11 +273,13 @@ export default function Dashboard() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.5 }}
         >
-          <PatientTable
-            patients={patients}
-            onPatientClick={handlePatientClick}
-            onEditPatient={handleEditPatient}
-          />
+          <div ref={totalRef}>
+            <PatientTable
+              patients={patients}
+              onPatientClick={handlePatientClick}
+              onEditPatient={handleEditPatient}
+            />
+          </div>
         </motion.div>
       </Section>
     </Container>

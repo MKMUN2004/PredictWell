@@ -133,10 +133,10 @@ export function PatientTable({ patients, onPatientClick, onEditPatient }: Patien
               onChange={(e) => setFilterRisk(e.target.value as "all" | "high" | "medium" | "low")}
               className="px-3 py-2 border border-border rounded-lg bg-card text-card-foreground focus:ring-2 focus:ring-primary focus:border-transparent sm:w-auto w-full"
             >
-              <option value="all">All Risk Levels</option>
-              <option value="high">High Risk</option>
-              <option value="medium">Medium Risk</option>
-              <option value="low">Low Risk</option>
+              <option value="all" className="text-black">All Risk Levels</option>
+              <option value="high" className="text-black">High Risk</option>
+              <option value="medium" className="text-black">Medium Risk</option>
+              <option value="low" className="text-black">Low Risk</option>
             </select>
           </div>
         </div>
@@ -163,7 +163,6 @@ export function PatientTable({ patients, onPatientClick, onEditPatient }: Patien
               <th className="hidden sm:table-cell px-6 py-3 text-left">
                 <SortButton field="status">Status</SortButton>
               </th>
-              <th className="px-3 sm:px-6 py-3 text-right">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -263,31 +262,7 @@ export function PatientTable({ patients, onPatientClick, onEditPatient }: Patien
                     </span>
                   </td>
                   
-                  <td className="px-3 sm:px-6 py-4 text-right">
-                    <div className="flex items-center justify-end space-x-1 sm:space-x-2">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          onPatientClick?.(patient)
-                        }}
-                        className="p-1 text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        <Eye className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          onEditPatient?.(patient)
-                        }}
-                        className="p-1 text-muted-foreground hover:text-green-600 transition-colors"
-                      >
-                        <Edit className="h-4 w-4" />
-                      </button>
-                      <button className="hidden sm:block p-1 text-muted-foreground hover:text-accent-foreground transition-colors">
-                        <MoreHorizontal className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </td>
+                  
                 </motion.tr>
               ))}
             </AnimatePresence>

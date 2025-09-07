@@ -38,6 +38,7 @@ export default function PatientsPage() {
   }, [])
 
   const handlePatientClick = (patient: Patient) => {
+    console.log("Navigate to patient:", patient.id)
     router.push(`/patients/${patient.id}`)
   }
 
@@ -84,7 +85,7 @@ export default function PatientsPage() {
           transition={{ duration: 0.5 }}
         >
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground">
               Patient Management
             </h1>
             <p className="text-gray-600 dark:text-gray-400 mt-1">

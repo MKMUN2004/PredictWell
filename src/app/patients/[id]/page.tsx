@@ -16,7 +16,8 @@ import {
   Stethoscope,
   Pill,
   FileText,
-  Clock
+  Clock,
+  LayoutList
 } from "lucide-react"
 import Link from "next/link"
 import { Patient } from "@/types/patient"
@@ -79,6 +80,7 @@ export default function PatientDetail() {
     { id: "vitals", label: "Vitals & Labs", icon: Heart },
     { id: "medications", label: "Medications", icon: Pill },
     { id: "history", label: "History", icon: FileText },
+    { id: "summary", label: "Summary", icon: LayoutList },
   ]
 
   return (
@@ -538,6 +540,63 @@ export default function PatientDetail() {
                     </div>
                   </motion.div>
                 ))}
+              </div>
+            </div>
+          )}
+
+          {activeTab === "summary" && (
+            <div className="space-y-6">
+              {/* Summary */}
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                Patient Summary
+              </h3>
+              <div className="space-y-3 text-gray-700 dark:text-gray-300 leading-relaxed">
+                
+                <p>
+                  <span className="font-semibold">👤 Demographics:</span> 
+                  {` ${patient.name}, ${patient.age}-year-old ${patient.gender.toLowerCase()}, MRN ${patient.mrn}.`}
+                </p>
+
+                <p>
+                  <span className="font-semibold">📊 Risk Profile:</span> 
+                  {` Status: ${patient.status}, Risk Score: ${patient.riskScore}% (${patient.riskLevel} Risk).`}
+                </p>
+
+                <p>
+                  <span className="font-semibold">💓 Vitals:</span> 
+                  {` BP: ${patient.vitals.bloodPressure.systolic}/${patient.vitals.bloodPressure.diastolic} mmHg, `}
+                  {`HR: ${patient.vitals.heartRate} bpm, `}
+                  {`BMI: ${patient.vitals.bmi.toFixed(1)}, `}
+                  {`Temp: ${patient.vitals.temperature.toFixed(1)}°C.`}
+                </p>
+
+                <p>
+                  <span className="font-semibold">🧪 Labs:</span> 
+                  {` Glucose: ${patient.labResults.glucose} mg/dL, `}
+                  {`HbA1c: ${patient.labResults.hba1c.toFixed(1)}%, `}
+                  {`Cholesterol (Total): ${patient.labResults.cholesterol.total} mg/dL.`}
+                </p>
+
+                <p>
+                  <span className="font-semibold">⚠️ Risk Factors:</span> 
+                  {` ${patient.riskFactors.slice(0, 2).map(f => f.name).join(" and ")}.`}
+                </p>
+
+                <p>
+                  <span className="font-semibold">🩺 Conditions:</span> 
+                  {` ${patient.conditions.join(", ")}.`}
+                </p>
+
+                <p>
+                  <span className="font-semibold">💊 Medications:</span> 
+                  {` ${patient.medications.slice(0, 2).map(m => m.name).join(" and ")} (among others).`}
+                </p>
+
+                <p>
+                  <span className="font-semibold">📌 Note:</span> 
+                  {` Close monitoring is recommended, focusing on managing ${patient.riskFactors[0].category.toLowerCase()} and associated conditions.`}
+                </p>
+
               </div>
             </div>
           )}

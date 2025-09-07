@@ -21,7 +21,7 @@ const navigation = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard },
   { name: "Patients", href: "/patients", icon: Users },
   { name: "Analytics", href: "/analytics", icon: BarChart3 },
-  { name: "Admin", href: "/admin", icon: Settings },
+  { name: "Privacy Protection", href: "/privacy", icon: Settings },
 ]
 
 export function Navigation() {
@@ -125,7 +125,7 @@ export function Navigation() {
                 <User className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
               </div>
               <span className="hidden sm:block text-sm font-medium text-card-foreground truncate max-w-32">
-                Dr. Smith
+                Admin
               </span>
             </div>
           </div>
